@@ -8,6 +8,12 @@
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
 
+"""
+Program identifies each unique word in a text file and the number of occurrences
+& provides the top 20 words by occurrence.
+"""
+__author__ = "bomazani"
+
 """Wordcount exercise
 Google's Python class
 
@@ -41,16 +47,35 @@ print_words() and print_top().
 
 import sys
 
-# +++your code here+++
-# Define print_words(filename) and print_top(filename) functions.
-# You could write a helper utility function that reads a file
-# and builds and returns a word/count dict for it.
-# Then print_words() and print_top() can just call the utility function.
+def create_dict(filename):
+    """ creates a dictionary with keys=words, and values= count of the word."""
+    with open(filename, "r") as f:
+        key_list = {}
+        for line in f:
+            line = line.lower()
+            for word in line.split():
+                if word not in key_list:
+                    key_list[word] = 1
+                else:
+                    key_list[word] += 1
+    return key_list
 
-###
+def print_words(filename):
+    """Alphabetize words"""
+    word_dict = create_dict(filename)
 
-# This basic command line argument parsing code is provided and
-# calls the print_words() and print_top() functions which you must define.
+    for key in sorted(word_dict):
+        print(key, word_dict[key])
+ 
+
+def print_top(filename):
+    """ Print top 20 number of occurrences. """
+    word_dict = create_dict(filename)
+
+    sorted_items = sorted(word_dict.items(), key=lambda t : t[1], reverse=True)
+    print("Top 20 words in {}".format(filename))
+    for k,v in sorted_items[:20]:
+        print("{}  {}".format(k,v))
 
 
 def main():
