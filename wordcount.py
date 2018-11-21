@@ -8,6 +8,7 @@
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
 
+import sys
 """
 Program identifies each unique word in a text file and the number of occurrences
 & provides the top 20 words by occurrence.
@@ -45,7 +46,6 @@ print_words() and print_top().
 
 """
 
-import sys
 
 def create_dict(filename):
     """ creates a dictionary with keys=words, and values= count of the word."""
@@ -60,22 +60,23 @@ def create_dict(filename):
                     key_list[word] += 1
     return key_list
 
+
 def print_words(filename):
     """Alphabetize words"""
     word_dict = create_dict(filename)
 
     for key in sorted(word_dict):
         print(key, word_dict[key])
- 
+
 
 def print_top(filename):
     """ Print top 20 number of occurrences. """
     word_dict = create_dict(filename)
 
-    sorted_items = sorted(word_dict.items(), key=lambda t : t[1], reverse=True)
+    sorted_items = sorted(word_dict.items(), key=lambda t: t[1], reverse=True)
     print("Top 20 words in {}".format(filename))
-    for k,v in sorted_items[:20]:
-        print("{}  {}".format(k,v))
+    for k, v in sorted_items[:20]:
+        print("{}  {}".format(k, v))
 
 
 def main():
